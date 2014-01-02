@@ -1,14 +1,15 @@
 {
-    "name": "zendframework/skeleton-application",
-    "description": "Skeleton Application for ZF2",
-    "license": "BSD-3-Clause",
+    "name": "recipedia",
+    "description": "Recipe book collaboration application",
+    "license": "Apache v2.0",
     "keywords": [
         "framework",
         "zf2"
     ],
-    "homepage": "http://framework.zend.com/",
+    "homepage": "https://linuxproj.ecs.soton.ac.uk/~sa10g10/Recipedia/",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.2.*"
+        "richardjh/rjhredbean": "dev-master",
+        "gabordemooij/redbean": "dev-master"
     }
 }

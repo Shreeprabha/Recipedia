@@ -1,0 +1,28 @@
+<?php
+namespace Recipe\Controller;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+
+class RecipeController extends AbstractActionController {
+	public _construct() {
+			
+	}
+	
+	
+	public function indexAction() {
+	$rb = $this->getServiceLocator()->get('RjhRedbean');
+	$t = $rb->dispense("foo1");
+    $t->when = time();
+    $rb->store($t);
+	}
+	
+	public function addAction(){
+	}
+	
+	public function editAction() {
+	}
+	
+	public function deleteAction(){
+	}
+}?>

@@ -10,6 +10,6 @@
     "require": {
         "php": ">=5.3.3",
         "richardjh/rjhredbean": "dev-master",
-        "gabordemooij/redbean": "dev-master"
+        "gabordemooij/redbean": "dev-master",
     }
 }

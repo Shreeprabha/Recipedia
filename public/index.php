@@ -1,4 +1,5 @@
 <?php
+
 /**
   * Display all errors when APPLICATION_ENV is development.
   */
@@ -23,3 +24,4 @@ require 'init_autoloader.php';
 
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+?>

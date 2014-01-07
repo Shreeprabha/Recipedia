@@ -1,0 +1,14 @@
+{
+    "name": "TBS",
+    "description": "Multi- authentication module for ZF2",
+    "keywords": [
+        "zf2"
+    ],
+    "homepage": "https://raw.github.com/thebestsolution/TBS-Zend-Library/",
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "autoload": {
+        "psr-0": {"TBS\\": "vendor/TBS/library/"}
+    }
+}

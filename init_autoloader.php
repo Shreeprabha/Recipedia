@@ -47,3 +47,8 @@ if ($zf2Path) {
 if (!class_exists('Zend\Loader\AutoloaderFactory')) {
     throw new RuntimeException('Unable to load ZF2. Run `php composer.phar install` or define a ZF2_PATH environment variable.');
 }
+
+$tbsauthPath = false;
+if (is_dir('vendor/TBS/src')) {
+    $tbsauthPath = 'vendor/TBS/src';
+}?>

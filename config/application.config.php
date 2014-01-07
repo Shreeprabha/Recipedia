@@ -5,7 +5,6 @@ return array(
         'Application',
         'richardjh\rjhredbean',
         'Recipe',
-       // 'TBS',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

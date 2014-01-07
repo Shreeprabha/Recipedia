@@ -11,11 +11,28 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\SessionManager;
 
 class IndexController extends AbstractActionController
 {
-    public function indexAction()
-    {
-        return new ViewModel();
-    }
+	public function indexAction()
+		{
+		if(isset($_SESSION['name'])) {
+			
+			echo '<script>jQuery(function(){
+			$( "#loginList" ).children().css("display","none");
+			});</script>';
+			
+			var_dump($_SESSION);
+		}
+		
+		/* Do login */
+		else {
+			echo '<script>jQuery(function(){
+			$( "#loginList" ).children().css("display","block");
+			});</script>';
+			echo"gahedh";
+		}
+		return new ViewModel();
+		}
 }

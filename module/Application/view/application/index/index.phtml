@@ -1,21 +1,36 @@
-<div class="jumbotron">
-    <h1><?php echo sprintf($this->translate('Welcome  2%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
-    <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('Fork Zend Framework 2 on GitHub') ?> &raquo;</a></p>
-</div>
-
-<div class="row">
-
-    
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Help &amp; Support') ?></h3>
-            </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We\'d love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s.'), '<a href="irc://irc.freenode.net/zftalk">', '</a>', '<a href="http://framework.zend.com/wiki/display/ZFDEV/Mailing+Lists">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://webchat.freenode.net?channels=zftalk" target="_blank"><?php echo $this->translate('Ping us on IRC') ?> &raquo;</a></p>
-            </div>
+<script>
+$(document).ready(function () {
+    $('.toggle').hide();
+    $('a.togglelink').on('click', function (e) {
+        
+        var elem = $(this).next('.toggle');
+        elem.toggle('slow');
+    });
+});
+</script>
+<ul id="loginList">
+    <li>
+    	<a href="facebook" class="togglelink">Login with Facebook</a>
+     </li>
+     <li>
+        <a href="#" class="togglelink">Login with Recipedia</a>
+        <div class="toggle" style="display: block;">
+            <form classs="stuff" method="post" action="login">
+        <p><input type="text" name="login" value="" placeholder="Username [which is email]"></p>
+        <p><input type="password" name="password" value="" placeholder="Password"></p>
+        <p class="submit"><input type="submit" name="commit" value="Login"></p>
+      </form>
         </div>
-    </div>
-</div>
+    </li>
+    <li>
+        <a href="#" class="togglelink">New to Recipedia? Sign up today!</a>
+        <div class="toggle" style="display: block;">
+            <form class="stuff" method="post" action="signup">
+        <p><input type="text" name="login" value="" placeholder="Username [which is email]"></p>
+        <p><input type="password" name="password" value="" placeholder="Password"></p>
+            <p><input type="password" name="password2" value="" placeholder="Confirm Password"></p>
+        <p class="submit"><input type="submit" name="commit" value="Sign Up"></p>
+      	</form>
+		</div>
+    </li>
+</ul>

@@ -50,35 +50,29 @@ return array(
 					),
 				),
 			),
-			
 			'login' => array(
-				'type'    => 'segment',
+				'type'    => 'Literal',
 				'options' => array(
-					'route'    => '/user[/:action][/:id]',
-					'constraints' => array(
-						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-						'id'     => '[0-9]+',
-					),
+					'route'    => '/login',
 					'defaults' => array(
-						'controller' => 'Application\Controller\User',
-						'action'     => 'login',
+						'__NAMESPACE__' => 'Application\Controller',
+						'controller'    => 'User',
+						'action'        => 'login',
 					),
 				),
 			),
 			'logout' => array(
-				'type'    => 'segment',
+				'type'    => 'Segment',
 				'options' => array(
-					'route'    => '/user[/:action][/:id]',
-					'constraints' => array(
-						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-						'id'     => '[0-9]+',
-					),
+					'route'    => '/logout',
 					'defaults' => array(
-						'controller' => 'Application\Controller\User',
-						'action'     => 'logout',
+						'__NAMESPACE__' => 'Application\Controller',
+						'controller'    => 'User',
+						'action'        => 'logout',
 					),
 				),
 			),
+			
 		),
 	),
 	'service_manager' => array(
@@ -124,11 +118,17 @@ return array(
 	),
 	'facebook.client_id'  	  => '715209851845327',
 	'facebook.client_secret'  => 'a15a5cabac91d4a5c9f4eabd592dc338',
-	'facebook.redirect_uri'   => 'http://localhost/login/facebook',
+	'facebook.redirect_uri'   => 'http://localhost/login',
 	'facebook.scope'          => 'email',
 	'facebook.auth_url'       => 'https://www.facebook.com/dialog/oauth',
 	'facebook.token_url'      => 'https://graph.facebook.com/oauth/access_token',
 	
+	'session' => array(
+        'remember_me_seconds' => 2419200,
+        'use_cookies' => true,
+        'cookie_httponly' => true,
+    ),
+    
 	// Placeholder for console routes
 	'console' => array(
 		'router' => array(

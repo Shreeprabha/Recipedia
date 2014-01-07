@@ -1,77 +1,85 @@
 <?php
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+namespace Application\Controller;
 
-class UserController extends Zend_Controller_Action
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Facebook;
+
+class UserController extends AbstractActionController
 {
-    public function loginAction()
-    {
-        $auth = TBS\Auth::getInstance();
+	
+	public function facebookAction()
+	{
+		$config = array(
+			'appId' => '715209851845327',
+			'secret' => 'a15a5cabac91d4a5c9f4eabd592dc338',
+			'allowSignedRequest' => false, // optional but should be set to false for non-canvas apps
+		);
+		
+		$facebook = new Facebook($config);
+		$user_id = $facebook->getUser();
+		
+		if($user_id) {
 
-        $providers = $auth->getIdentity();
+      // We have a user ID, so probably a logged in user.
+      // If not, we'll get an exception, which we handle below.
+      try {
 
-        // Here the response of the providers are registered
-        if ($this->_hasParam('provider')) {
-            $provider = $this->_getParam('provider');
+        $user_profile = $facebook->api('/me','GET');
+        var_dump($user_profile);
+        echo "Name: " . $user_profile['name'];
 
-            switch ($provider) {
-                case "facebook":
-                    if ($this->_hasParam('code')) {
-                        $adapter = new TBS\Auth\Adapter\Facebook(
-                                $this->_getParam('code'));
-                        $result = $auth->authenticate($adapter);
-                    }
-                    if($this->_hasParam('error')) {
-                        throw new Zend_Controller_Action_Exception('Facebook login failed, response is: ' . 
-                            $this->_getParam('error'));
-                    }
-                    break;
-                case "twitter":
-                    if ($this->_hasParam('oauth_token')) {
-                        $adapter = new TBS\Auth\Adapter\Twitter($_GET);
-                        $result = $auth->authenticate($adapter);
-                    }
-                    break;
-                case "google":
-                
-                    if ($this->_hasParam('code')) {
-                        $adapter = new TBS\Auth\Adapter\Google(
-                                $this->_getParam('code'));
-                        $result = $auth->authenticate($adapter);
-                    }
-                    if($this->_hasParam('error')) {
-                        throw new Zend_Controller_Action_Exception('Google login failed, response is: ' . 
-                            $this->_getParam('error'));
-                    }
-                    break;
+      } catch(FacebookApiException $e) {
+        // If the user is logged out, you can have a 
+        // user ID even though the access token is invalid.
+        // In this case, we'll get an exception, so we'll
+        // just ask the user to login again here.
+        $login_url = $facebook->getLoginUrl(); 
+        echo 'Please <a href="' . $login_url . '">login.</a>';
+        error_log($e->getType());
+        error_log($e->getMessage());
+      }   
+    } else {
 
-            }
-            // What to do when invalid
-            if (isset($result) && !$result->isValid()) {
-                $auth->clearIdentity($this->_getParam('provider'));
-                throw new Zend_Controller_Action_Exception('Login failed');
-            } else {
-                $this->_redirect('/user/connect');
-            }
-        } else { // Normal login page
-            $this->view->googleAuthUrl = TBS\Auth\Adapter\Google::getAuthorizationUrl();
-            $this->view->googleAuthUrlOffline = TBS\Auth\Adapter\Google::getAuthorizationUrl(true);
-            $this->view->facebookAuthUrl = TBS\Auth\Adapter\Facebook::getAuthorizationUrl();
-
-            $this->view->twitterAuthUrl = \TBS\Auth\Adapter\Twitter::getAuthorizationUrl();
-        }
+      // No user, print a link for the user to login
+      $login_url = $facebook->getLoginUrl();
+      echo 'Please <a href="' . $login_url . '">login.</a>';
 
     }
-    public function connectAction()
-    {
-        $auth = TBS\Auth::getInstance();
-        if (!$auth->hasIdentity()) {
-            throw new Zend_Controller_Action_Exception('Not logged in!', 404);
-        }
-        $this->view->providers = $auth->getIdentity();
-    }
-
-    public function logoutAction()
-    {
-        \TBS\Auth::getInstance()->clearIdentity();
-        $this->_redirect('/');
-    }
+    
+    
+    
+    
+    
+    
+    
+		
+		
+		return new ViewModel(array ('user_id' => $user_id,));
+		
+		
+	}
+	
+	
+	public function connectAction()
+		{
+		$auth = Auth::getInstance();
+		if (!$auth->hasIdentity()) {
+			throw new Exception('Not logged in!', 404);
+		}
+		$this->view->providers = $auth->getIdentity();
+		}
+	
+	public function logoutAction()
+		{
+		Auth::getInstance()->clearIdentity();
+		$this->_redirect('/');
+		}
 }

@@ -11,6 +11,7 @@
         "php": ">=5.3.3",
         "richardjh/rjhredbean": "dev-master",
         "gabordemooij/redbean": "dev-master",
-        "facebook/php-sdk" : "*"
+        "facebook/php-sdk" : "*",
+        "doctrine/common" : ">=2.1"
     }
 }

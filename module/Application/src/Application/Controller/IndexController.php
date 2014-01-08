@@ -17,22 +17,22 @@ class IndexController extends AbstractActionController
 {
 	public function indexAction()
 		{
-		if(isset($_SESSION['name'])) {
-			
-			echo '<script>jQuery(function(){
-			$( "#loginList" ).children().css("display","none");
-			});</script>';
-			
-			var_dump($_SESSION);
-		}
-		
-		/* Do login */
-		else {
-			echo '<script>jQuery(function(){
-			$( "#loginList" ).children().css("display","block");
-			});</script>';
-			echo"gahedh";
-		}
+//		if(isset($_SESSION['name'])) {
+//			
+//			echo '<script>jQuery(function(){
+//			$( "#loginList" ).children().css("display","none");
+//			});</script>';
+//			
+//			var_dump($_SESSION);
+//		}
+//		
+//		/* Do login */
+//		else {
+//			echo '<script>jQuery(function(){
+//			$( "#loginList" ).children().css("display","block");
+//			});</script>';
+//			echo"gahedh";
+//		}
 		return new ViewModel();
 		}
 }

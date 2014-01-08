@@ -1,8 +1,8 @@
 <?php
 namespace Recipe\Model;
-use RedBean_SimpleModel;
+//use RedBean_SimpleModel;
 
-class Model_Recipe extends RedBean_SimpleModel {
+class Model_Recipe {
 	protected $_id;
 	protected $_chef;
 	protected $_title;

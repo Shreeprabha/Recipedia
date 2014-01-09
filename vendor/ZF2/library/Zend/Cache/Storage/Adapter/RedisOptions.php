@@ -3,14 +3,13 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Zend\Cache\Storage\Adapter;
 
-use Redis as RedisResource;
-use Zend\Cache\Storage\Adapter\AdapterOptions;
+use Zend\Cache\Exception;
 
 class RedisOptions extends AdapterOptions
 {
@@ -21,7 +20,7 @@ class RedisOptions extends AdapterOptions
     protected $namespaceSeparator = ':';
 
     /**
-     * The memcached resource manager
+     * The redis resource manager
      *
      * @var null|RedisResourceManager
      */
@@ -172,6 +171,7 @@ class RedisOptions extends AdapterOptions
     */
     public function setLibOptions(array $libOptions)
     {
+        $this->triggerOptionEvent('lib_option', $libOptions);
         $this->getResourceManager()->setLibOptions($this->getResourceId(), $libOptions);
         return $this;
     }
@@ -236,5 +236,28 @@ class RedisOptions extends AdapterOptions
     public function getDatabase()
     {
         return $this->getResourceManager()->getDatabase($this->getResourceId());
+    }
+
+    /**
+     * Set resource password
+     *
+     * @param string $password Password
+     *
+     * @return RedisOptions
+     */
+    public function setPassword($password)
+    {
+        $this->getResourceManager()->setPassword($this->getResourceId(), $password);
+        return $this;
+    }
+
+    /**
+     * Get resource password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->getResourceManager()->getPassword($this->getResourceId());
     }
 }

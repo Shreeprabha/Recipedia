@@ -28,16 +28,21 @@ body {
 	#wrapper {
 		padding-left: 225px;
 	}
-
+	#magazine {
+		width: 800px;
+		height: 400px;
+	}
+	#magazine .turn-page {
+		background-color: #ccc;
+	}
 	/* Side Nav */
 	.navbar-inverse .navbar-brand {
 		color: #fff;
 		font-weight: 900;
-		font-size:120%;
+		font-size: 120%;
 	}
-	
 	.navbar-inverse .navbar-nav>li>a {
-	color:#580407;
+		color: #580407;
 	}
 	.side-nav {
 		margin-left: -250px;
@@ -50,12 +55,11 @@ body {
 		border: none;
 		background-color: #ab0000;
 		overflow-y: auto;
-		
 	}
 
 	/* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
 	.side-nav>li.dropdown>ul.dropdown-menu {
-		color:#580407;
+		color: #580407;
 		position: relative;
 		min-width: 225px;
 		margin: 0;
@@ -82,7 +86,7 @@ body {
 		background-color: #ab0000;
 	}
 	.navbar-inverse .navbar-nav>li>a:hover,.navbar-inverse .navbar-nav>li>a:focus
-	{
+		{
 		background-color: #580407;
 	}
 }

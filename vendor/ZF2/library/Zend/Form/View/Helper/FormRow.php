@@ -3,15 +3,15 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Zend\Form\View\Helper;
 
+use Zend\Form\Element\Button;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
-use Zend\Form\View\Helper\AbstractHelper;
 
 class FormRow extends AbstractHelper
 {
@@ -80,6 +80,7 @@ class FormRow extends AbstractHelper
      * @param  null|ElementInterface $element
      * @param  null|string           $labelPosition
      * @param  bool                  $renderErrors
+     * @param  string|null           $partial
      * @return string|FormRow
      */
     public function __invoke(ElementInterface $element = null, $labelPosition = null, $renderErrors = null, $partial = null)
@@ -90,7 +91,7 @@ class FormRow extends AbstractHelper
 
         if ($labelPosition !== null) {
             $this->setLabelPosition($labelPosition);
-        } else {
+        } elseif ($this->labelPosition === null) {
             $this->setLabelPosition(self::LABEL_PREPEND);
         }
 
@@ -121,7 +122,6 @@ class FormRow extends AbstractHelper
 
         $label           = $element->getLabel();
         $inputErrorClass = $this->getInputErrorClass();
-        $elementErrors   = $elementErrorsHelper->render($element);
 
         if (isset($label) && '' !== $label) {
             // Translate the label
@@ -133,7 +133,7 @@ class FormRow extends AbstractHelper
         }
 
         // Does this element have errors ?
-        if (!empty($elementErrors) && !empty($inputErrorClass)) {
+        if (count($element->getMessages()) > 0 && !empty($inputErrorClass)) {
             $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '');
             $classAttributes = $classAttributes . $inputErrorClass;
 
@@ -150,6 +150,10 @@ class FormRow extends AbstractHelper
             );
 
             return $this->view->render($this->partial, $vars);
+        }
+
+        if ($this->renderErrors) {
+            $elementErrors = $elementErrorsHelper->render($element);
         }
 
         $elementString = $elementHelper->render($element);
@@ -182,6 +186,11 @@ class FormRow extends AbstractHelper
 
                 if ($label !== '' && !$element->hasAttribute('id')) {
                     $label = '<span>' . $label . '</span>';
+                }
+
+                // Button element is a special case, because label is always rendered inside it
+                if ($element instanceof Button) {
+                    $labelOpen = $labelClose = $label = '';
                 }
 
                 switch ($this->labelPosition) {
@@ -300,7 +309,7 @@ class FormRow extends AbstractHelper
     }
 
     /**
-     * Retrive if the errors are rendered by this helper
+     * Retrieve if the errors are rendered by this helper
      *
      * @return bool
      */
@@ -322,7 +331,7 @@ class FormRow extends AbstractHelper
     }
 
     /**
-     * Retrive current partial
+     * Retrieve current partial
      *
      * @return null|string
      */

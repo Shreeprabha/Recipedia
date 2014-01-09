@@ -3,18 +3,17 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Zend\ProgressBar\Adapter;
 
-use Zend\ProgressBar\Adapter\Exception;
 use Zend\Stdlib\ErrorHandler;
 use Zend\Stdlib\StringUtils;
 
 /**
- * Zend_ProgressBar_Adapter_Console offers a text-based progressbar for console
+ * Zend\ProgressBar\Adapter\Console offers a text-based progressbar for console
  * applications
  */
 class Console extends AbstractAdapter
@@ -136,7 +135,7 @@ class Console extends AbstractAdapter
     protected $charset = 'utf-8';
 
     /**
-     * Defined by Zend_ProgressBar_Adapter
+     * Defined by Zend\ProgressBar adapter
      *
      * @param  array|\Traversable $options
      */

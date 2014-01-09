@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -23,7 +23,7 @@ class Fieldset extends Element implements FieldsetInterface
     protected $factory;
 
     /**
-     * @var array
+     * @var ElementInterface[]
      */
     protected $byName    = array();
 
@@ -206,14 +206,16 @@ class Fieldset extends Element implements FieldsetInterface
     /**
      * Retrieve a named element or fieldset
      *
-     * @todo   Should this raise an exception if no entry is found?
      * @param  string $elementOrFieldset
      * @return ElementInterface
      */
     public function get($elementOrFieldset)
     {
         if (!$this->has($elementOrFieldset)) {
-            return null;
+            throw new Exception\InvalidElementException(sprintf(
+                "No element by the name of [%s] found in form",
+                $elementOrFieldset
+            ));
         }
         return $this->byName[$elementOrFieldset];
     }

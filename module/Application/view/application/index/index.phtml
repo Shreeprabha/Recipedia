@@ -1,37 +1,31 @@
-<script>
-$(document).ready(function () {
-    $('.toggle').hide();
-    $('a.togglelink').on('click', function (e) {
-        
-        var elem = $(this).next('.toggle');
-        elem.toggle('slow');
-    });
-});
-</script>
-LOLLLLLLLLLLLlll
-<ul id="loginList">
-    <li>
-    	<a href="facebook" class="togglelink">Login with Facebook</a>
-     </li>
-     <li>
-        <a href="#" class="togglelink">Login with Recipedia</a>
-        <div class="toggle" style="display: block;">
-            <form classs="stuff" method="post" action="login">
-        <p><input type="text" name="login" value="" placeholder="Username [which is email]"></p>
-        <p><input type="password" name="password" value="" placeholder="Password"></p>
-        <p class="submit"><input type="submit" name="commit" value="Login"></p>
-      </form>
-        </div>
-    </li>
-    <li>
-        <a href="#" class="togglelink">New to Recipedia? Sign up today!</a>
-        <div class="toggle" style="display: block;">
-            <form class="stuff" method="post" action="signup">
-        <p><input type="text" name="login" value="" placeholder="Username [which is email]"></p>
-        <p><input type="password" name="password" value="" placeholder="Password"></p>
-            <p><input type="password" name="password2" value="" placeholder="Confirm Password"></p>
-        <p class="submit"><input type="submit" name="commit" value="Sign Up"></p>
-      	</form>
-		</div>
-    </li>
-</ul>
+	<?php echo $this->inlineScript() 
+	->prependFile($this->basePath() . '/library/booklet/jquery-ui-1.10.1.custom.min.js')
+            ->prependFile($this->basePath() . '/library/booklet/jquery.easing.1.3.js')
+            ->prependFile($this->basePath() . '/library/booklet/jquery.booklet.latest.min.js')
+     ?>
+	<script type="text/javascript">
+	    $(function () {		
+	        $("#mybook").booklet({ closed:true, pageNumbers: false });
+	    });
+    </script>
+    <div id="mybook">
+	        <div class="b-page-cover b-wrap" title="first page">
+	            <h3>Page 1</h3>
+	        </div>
+	        <div title="second page">
+	            <h3>Page 2</h3>
+	        </div>
+	        <div title="third page">
+	            <h3>Page 3</h3>
+	        </div>
+	        <div title="fourth page">
+	            <h3>Page 4</h3>
+	        </div>
+	        <div title="fifth page">
+	            <h3>Page 5</h3>
+	        </div>
+	        <div class=" b-page-cover b-wrap" title="sixth page">
+	            <h3>Page 6</h3>
+	        </div>
+	        
+	 </div>

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -103,22 +103,15 @@ class DbSelect implements AdapterInterface
         }
 
         $select = clone $this->select;
-        $select->reset(Select::COLUMNS);
         $select->reset(Select::LIMIT);
         $select->reset(Select::OFFSET);
         $select->reset(Select::ORDER);
-        $select->reset(Select::GROUP);
 
-        // get join information, clear, and repopulate without columns
-        $joins = $select->getRawState(Select::JOINS);
-        $select->reset(Select::JOINS);
-        foreach ($joins as $join) {
-            $select->join($join['name'], $join['on'], array(), $join['type']);
-        }
+        $countSelect = new Select;
+        $countSelect->columns(array('c' => new Expression('COUNT(1)')));
+        $countSelect->from(array('original_select' => $select));
 
-        $select->columns(array('c' => new Expression('COUNT(1)')));
-
-        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $statement = $this->sql->prepareStatementForSqlObject($countSelect);
         $result    = $statement->execute();
         $row       = $result->current();
 

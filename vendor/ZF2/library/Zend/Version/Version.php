@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -19,15 +19,15 @@ final class Version
     /**
      * Zend Framework version identification - see compareVersion()
      */
-    const VERSION = '2.2.0dev';
+    const VERSION = '2.2.6dev';
 
     /**
-     * Github Service Identifier for version information is retreived from
+     * Github Service Identifier for version information is retrieved from
      */
     const VERSION_SERVICE_GITHUB = 'GITHUB';
 
     /**
-     * Zend (framework.zend.com) Service Identifier for version information is retreived from
+     * Zend (framework.zend.com) Service Identifier for version information is retrieved from
      */
     const VERSION_SERVICE_ZEND = 'ZEND';
 
@@ -40,7 +40,7 @@ final class Version
 
     /**
      * Compare the specified Zend Framework version string $version
-     * with the current Zend_Version::VERSION of Zend Framework.
+     * with the current Zend\Version\Version::VERSION of Zend Framework.
      *
      * @param  string  $version  A version string (e.g. "0.7.1").
      * @return int           -1 if the $version is older,
@@ -58,14 +58,14 @@ final class Version
     /**
      * Fetches the version of the latest stable release.
      *
-     * By Default, this uses the GitHub API (v3) and only returns refs that begin with
-     * 'tags/release-'. Because GitHub returns the refs in alphabetical order,
-     * we need to reduce the array to a single value, comparing the version
-     * numbers with version_compare().
+     * By default, this uses the API provided by framework.zend.com for version
+     * retrieval.
      *
-     * If $service is set to VERSION_SERVICE_ZEND this will fall back to calling the
-     * classic style of version retreival.
-     *
+     * If $service is set to VERSION_SERVICE_GITHUB, this will use the GitHub
+     * API (v3) and only returns refs that begin with * 'tags/release-'.
+     * Because GitHub returns the refs in alphabetical order, we need to reduce
+     * the array to a single value, comparing the version numbers with
+     * version_compare().
      *
      * @see http://developer.github.com/v3/git/refs/#get-all-references
      * @link https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-

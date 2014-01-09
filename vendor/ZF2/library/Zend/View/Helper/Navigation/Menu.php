@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -464,8 +464,9 @@ class Menu extends AbstractHelper
      *
      * Overrides {@link AbstractHelper::htmlify()}.
      *
-     * @param  AbstractPage $page        page to generate HTML for
-     * @param  bool         $escapeLabel Whether or not to escape the label
+     * @param  AbstractPage $page               page to generate HTML for
+     * @param  bool         $escapeLabel        Whether or not to escape the label
+     * @param  bool         $addClassToListItem Whether or not to add the page class to the list item
      * @return string
      */
     public function htmlify(AbstractPage $page, $escapeLabel = true, $addClassToListItem = false)

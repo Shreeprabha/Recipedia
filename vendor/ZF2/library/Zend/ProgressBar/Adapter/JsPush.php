@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -12,7 +12,7 @@ namespace Zend\ProgressBar\Adapter;
 use Zend\Json\Json;
 
 /**
- * Zend_ProgressBar_Adapter_JsPush offers a simple method for updating a
+ * Zend\ProgressBar\Adapter\JsPush offers a simple method for updating a
  * progressbar in a browser.
  */
 class JsPush extends AbstractAdapter

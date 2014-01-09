@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -54,16 +54,16 @@ abstract class StorageFactory
             throw new Exception\InvalidArgumentException('Missing "adapter"');
         }
         $adapterName    = $cfg['adapter'];
-        $adapterOptions = null;
+        $adapterOptions = array();
         if (is_array($cfg['adapter'])) {
             if (!isset($cfg['adapter']['name'])) {
                 throw new Exception\InvalidArgumentException('Missing "adapter.name"');
             }
 
             $adapterName    = $cfg['adapter']['name'];
-            $adapterOptions = isset($cfg['adapter']['options']) ? $cfg['adapter']['options'] : null;
+            $adapterOptions = isset($cfg['adapter']['options']) ? $cfg['adapter']['options'] : array();
         }
-        if ($adapterOptions && isset($cfg['options'])) {
+        if (isset($cfg['options'])) {
             $adapterOptions = array_merge($adapterOptions, $cfg['options']);
         }
 

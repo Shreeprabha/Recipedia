@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,7 +16,7 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * A testing-purposes adapter.
  *
- * Should be used to test all components that rely on Zend_Http_Client,
+ * Should be used to test all components that rely on Zend\Http\Client,
  * without actually performing an HTTP request. You should instantiate this
  * object manually, and then set it as the client's adapter. Then, you can
  * set the expected response using the setResponse() method.

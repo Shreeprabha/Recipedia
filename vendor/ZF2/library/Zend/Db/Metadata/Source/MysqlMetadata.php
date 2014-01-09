@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -373,13 +373,9 @@ class MysqlMetadata extends AbstractSource
         $this->data['constraint_keys'][$schema] = $data;
     }
 
-    protected function loadConstraintReferences($schema)
+    protected function loadConstraintReferences($table, $schema)
     {
-        if (isset($this->data['constraint_references'][$schema])) {
-            return;
-        }
-
-        $this->prepareDataHierarchy('constraint_references', $schema);
+        parent::loadConstraintReferences($table, $schema);
 
         $p = $this->adapter->getPlatform();
 

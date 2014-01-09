@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -75,19 +75,13 @@ class ExcludeMimeType extends MimeType
             }
         }
 
-        if (empty($this->type) &&
-            (function_exists('mime_content_type') && ini_get('mime_magic.magicfile'))
-        ) {
-            $this->type = mime_content_type($file);
-        }
-
         if (empty($this->type) && $this->getHeaderCheck()) {
             $this->type = $filetype;
         }
 
         if (empty($this->type)) {
             $this->error(self::NOT_DETECTED);
-            false;
+            return false;
         }
 
         $mimetype = $this->getMimeType(true);

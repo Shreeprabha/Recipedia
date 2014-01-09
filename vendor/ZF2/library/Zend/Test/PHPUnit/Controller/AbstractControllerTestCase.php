@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 namespace Zend\Test\PHPUnit\Controller;
@@ -25,12 +25,12 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
     /**
      * @var \Zend\Mvc\ApplicationInterface
      */
-    private $application;
+    protected $application;
 
     /**
      * @var array
      */
-    private $applicationConfig;
+    protected $applicationConfig;
 
     /**
      * Flag to use console router or not
@@ -42,7 +42,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
      * Flag console used before tests
      * @var bool
      */
-    private $usedConsoleBackup;
+    protected $usedConsoleBackup;
 
     /**
      * Trace error when exception is throwed in application
@@ -53,7 +53,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
     /**
      * Reset the application for isolation
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->usedConsoleBackup = Console::isConsole();
         $this->reset();
@@ -62,7 +62,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
     /**
      * Restore params
      */
-    public function tearDown()
+    protected function tearDown()
     {
         Console::overrideIsConsole($this->usedConsoleBackup);
     }
@@ -212,15 +212,15 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         }
 
         if ($method == HttpRequest::METHOD_POST) {
-            if (count($params) != 0){
+            if (count($params) != 0) {
                 $post = $params;
             }
         } elseif ($method == HttpRequest::METHOD_GET) {
             $query = array_merge($query, $params);
         } elseif ($method == HttpRequest::METHOD_PUT) {
-            if (count($params) != 0){
+            if (count($params) != 0) {
                 array_walk($params,
-                    function(&$item, $key) { $item = $key . '=' . $item; }
+                    function (&$item, $key) { $item = $key . '=' . $item; }
                 );
                 $content = implode('&', $params);
                 $request->setContent($content);

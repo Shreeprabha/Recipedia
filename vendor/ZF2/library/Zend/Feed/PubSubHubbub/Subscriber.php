@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -618,7 +618,7 @@ class Subscriber
                 $client->setAuth($auth[0], $auth[1]);
             }
             $client->setUri($url);
-            $client->setRawBody($this->_getRequestParameters($url, $mode));
+            $client->setRawBody($params = $this->_getRequestParameters($url, $mode));
             $response = $client->send();
             if ($response->getStatusCode() !== 204
                 && $response->getStatusCode() !== 202
@@ -734,7 +734,7 @@ class Subscriber
             'topic_url'          => $params['hub.topic'],
             'hub_url'            => $hubUrl,
             'created_time'       => $now->format('Y-m-d H:i:s'),
-            'lease_seconds'      => $expires,
+            'lease_seconds'      => $params['hub.lease_seconds'],
             'verify_token'       => hash('sha256', $params['hub.verify_token']),
             'secret'             => null,
             'expiration_time'    => $expires,

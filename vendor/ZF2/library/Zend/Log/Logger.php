@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -123,7 +123,7 @@ class Logger implements LoggerInterface
      * @return Logger
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct(array $options = null)
+    public function __construct($options = null)
     {
         $this->writers = new SplPriorityQueue();
 
@@ -147,13 +147,15 @@ class Logger implements LoggerInterface
             }
 
             if (isset($options['exceptionhandler']) && $options['exceptionhandler'] === true) {
-                self::registerExceptionHandler($this);
+                static::registerExceptionHandler($this);
             }
 
             if (isset($options['errorhandler']) && $options['errorhandler'] === true) {
-                self::registerErrorHandler($this);
+                static::registerErrorHandler($this);
             }
 
+        } elseif ($options) {
+            throw new Exception\InvalidArgumentException('Options must be an array or an object implementing \Traversable ');
         }
 
         $this->processors = new SplPriorityQueue();
@@ -517,16 +519,14 @@ class Logger implements LoggerInterface
             return false;
         }
 
-        $errorHandlerMap = static::$errorPriorityMap;
+        $errorPriorityMap = static::$errorPriorityMap;
 
-        $previous = set_error_handler(function ($level, $message, $file, $line, $context)
-            use ($logger, $errorHandlerMap, $continueNativeHandler)
-        {
+        $previous = set_error_handler(function ($level, $message, $file, $line) use ($logger, $errorPriorityMap, $continueNativeHandler) {
             $iniLevel = error_reporting();
 
             if ($iniLevel & $level) {
-                if (isset(Logger::$errorPriorityMap[$level])) {
-                    $priority = $errorHandlerMap[$level];
+                if (isset($errorPriorityMap[$level])) {
+                    $priority = $errorPriorityMap[$level];
                 } else {
                     $priority = Logger::INFO;
                 }
@@ -534,7 +534,6 @@ class Logger implements LoggerInterface
                     'errno'   => $level,
                     'file'    => $file,
                     'line'    => $line,
-                    'context' => $context,
                 ));
             }
 

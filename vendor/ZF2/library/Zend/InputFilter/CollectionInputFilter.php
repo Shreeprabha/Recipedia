@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -145,7 +145,7 @@ class CollectionInputFilter extends InputFilter
      */
     public function setData($data)
     {
-        $this->collectionData = array_values($data);
+        $this->collectionData = $data;
     }
 
     /**
@@ -162,13 +162,16 @@ class CollectionInputFilter extends InputFilter
             return $valid;
         }
 
-        $inputCollection = array_fill(0, $this->getCount(), $this->validationGroup ?: array_keys($this->inputs));
+        if (count($this->collectionData) < $this->getCount()) {
+            $valid = false;
+        }
 
-        foreach ($inputCollection as $key => $inputs) {
-            $this->data = array();
-            if (isset($this->collectionData[$key])) {
-               $this->data = $this->collectionData[$key];
+        $inputs = $this->validationGroup ?: array_keys($this->inputs);
+        foreach ($this->collectionData as $key => $data) {
+            if (!is_array($data)) {
+                $data = array();
             }
+            $this->data = $data;
             $this->populate();
 
             if ($this->validateInputs($inputs)) {

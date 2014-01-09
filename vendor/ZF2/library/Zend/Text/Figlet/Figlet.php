@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -11,7 +11,6 @@ namespace Zend\Text\Figlet;
 
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\ErrorHandler;
 use Zend\Stdlib\StringUtils;
 
 /**
@@ -259,7 +258,7 @@ class Figlet
      * Instantiate the FIGlet with a specific font. If no font is given, the
      * standard font is used. You can also supply multiple options via
      * the $options variable, which can either be an array or an instance of
-     * Zend_Config.
+     * Zend\Config\Config.
      *
      * @param array|Traversable $options Options for the output
      */

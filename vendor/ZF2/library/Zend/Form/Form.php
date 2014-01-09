@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -11,7 +11,6 @@ namespace Zend\Form;
 
 use Traversable;
 use Zend\Form\Element\Collection;
-use Zend\Form\Exception;
 use Zend\InputFilter\CollectionInputFilter;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
@@ -106,7 +105,7 @@ class Form extends Fieldset implements FormInterface
      *
      * @var bool
      */
-    protected $preferFormInputFilter = false;
+    protected $preferFormInputFilter = true;
 
     /**
      * Are the form elements/fieldsets wrapped by the form name ?
@@ -121,6 +120,26 @@ class Form extends Fieldset implements FormInterface
      * @var null|array
      */
     protected $validationGroup;
+
+
+    /**
+     * Set options for a form. Accepted options are:
+     * - prefer_form_input_filter: is form input filter is preferred?
+     *
+     * @param  array|Traversable $options
+     * @return Element|ElementInterface
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setOptions($options)
+    {
+        parent::setOptions($options);
+
+        if (isset($options['prefer_form_input_filter'])) {
+            $this->setPreferFormInputFilter($options['prefer_form_input_filter']);
+        }
+
+        return $this;
+    }
 
     /**
      * Add an element or fieldset
@@ -177,7 +196,9 @@ class Form extends Fieldset implements FormInterface
             $this->prepareElement($this);
         } else {
             foreach ($this->getIterator() as $elementOrFieldset) {
-                if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
+                if ($elementOrFieldset instanceof FormInterface) {
+                    $elementOrFieldset->prepare();
+                } elseif ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
                     $elementOrFieldset->prepareElement($this);
                 }
             }
@@ -196,9 +217,6 @@ class Form extends Fieldset implements FormInterface
      */
     public function prepareElement(FormInterface $form)
     {
-        if ($form !== $this) {
-            return;
-        }
         $name = $this->getName();
 
         foreach ($this->byName as $elementOrFieldset) {
@@ -718,13 +736,6 @@ class Form extends Fieldset implements FormInterface
         $formFactory  = $this->getFormFactory();
         $inputFactory = $formFactory->getInputFilterFactory();
 
-        if ($this instanceof InputFilterProviderInterface) {
-            foreach ($this->getInputFilterSpecification() as $name => $spec) {
-                $input = $inputFactory->createInput($spec);
-                $inputFilter->add($input, $name);
-            }
-        }
-
         if ($fieldset instanceof Collection && $fieldset->getTargetElement() instanceof FieldsetInterface) {
             $elements = $fieldset->getTargetElement()->getElements();
         } else {
@@ -752,6 +763,13 @@ class Form extends Fieldset implements FormInterface
 
                 $input = $inputFactory->createInput($spec);
                 $inputFilter->add($input, $name);
+            }
+
+            if ($fieldset === $this && $fieldset instanceof InputFilterProviderInterface) {
+                foreach ($fieldset->getInputFilterSpecification() as $name => $spec) {
+                    $input = $inputFactory->createInput($spec);
+                    $inputFilter->add($input, $name);
+                }
             }
         }
 

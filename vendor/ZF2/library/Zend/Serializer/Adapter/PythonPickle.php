@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -421,7 +421,9 @@ class PythonPickle extends AbstractAdapter
         $this->memorize($value);
 
         foreach ($value as $k => $v) {
-            $this->pickle .= $this->write($k) . $this->write($v) . self::OP_SETITEM;
+            $this->write($k);
+            $this->write($v);
+            $this->pickle .= self::OP_SETITEM;
         }
     }
 
@@ -441,7 +443,8 @@ class PythonPickle extends AbstractAdapter
         $this->memorize($value);
 
         foreach ($value as $v) {
-            $this->pickle .= $this->write($v) . self::OP_APPEND;
+            $this->write($v);
+            $this->pickle .= self::OP_APPEND;
         }
     }
 

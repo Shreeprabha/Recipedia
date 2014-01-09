@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -54,7 +54,7 @@ class MemoryManager
     private $memorySize = 0;
 
     /**
-     * Id for next Zend_Memory object
+     * Id for next Zend\Memory object
      *
      * @var int
      */
@@ -214,7 +214,7 @@ class MemoryManager
     }
 
     /**
-     * Create new Zend_Memory value container
+     * Create new Zend\Memory value container
      *
      * @param string $value
      * @return Container\ContainerInterface
@@ -226,7 +226,7 @@ class MemoryManager
     }
 
     /**
-     * Create new Zend_Memory value container, which has value always
+     * Create new Zend\Memory value container, which has value always
      * locked in memory
      *
      * @param string $value
@@ -239,7 +239,7 @@ class MemoryManager
     }
 
     /**
-     * Create new Zend_Memory object
+     * Create new Zend\Memory object
      *
      * @param string $value
      * @param  bool $locked

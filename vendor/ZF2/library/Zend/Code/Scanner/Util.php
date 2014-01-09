@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -26,9 +26,12 @@ class Util
      * @return void
      * @throws Exception\InvalidArgumentException
      */
-    public static function resolveImports(&$value, $key = null, stdClass $data)
+    public static function resolveImports(&$value, $key = null, stdClass $data = null)
     {
-        if (!property_exists($data, 'uses') || !property_exists($data, 'namespace')) {
+        if (!is_object($data)
+            || !property_exists($data, 'uses')
+            || !property_exists($data, 'namespace')
+        ) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a data object containing "uses" and "namespace" properties; on or both missing',
                 __METHOD__

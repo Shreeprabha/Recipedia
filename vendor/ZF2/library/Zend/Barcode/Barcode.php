@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -71,7 +71,7 @@ abstract class Barcode
     }
 
     /**
-     * Factory for Zend_Barcode classes.
+     * Factory for Zend\Barcode classes.
      *
      * First argument may be a string containing the base of the adapter class
      * name, e.g. 'int25' corresponds to class Object\Int25.  This

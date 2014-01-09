@@ -3,14 +3,13 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Zend\XmlRpc;
 
 use DateTime;
-use Zend\Math\BigInteger;
 
 /**
  * Represent a native XML-RPC value entity, used as parameters for the methods
@@ -20,7 +19,7 @@ use Zend\Math\BigInteger;
  * function acts likes a factory for the Zend\XmlRpc\Value objects
  *
  * Using this function, users/Zend\XmlRpc\Client object can create the Zend\XmlRpc\Value objects
- * from PHP variables, XML string or by specifying the exact XML-RPC natvie type
+ * from PHP variables, XML string or by specifying the exact XML-RPC native type
  */
 abstract class AbstractValue
 {
@@ -277,17 +276,8 @@ abstract class AbstractValue
     protected static function _phpVarToNativeXmlRpc($value)
     {
         // @see http://framework.zend.com/issues/browse/ZF-8623
-        if (is_object($value)) {
-            if ($value instanceof AbstractValue) {
-                return $value;
-            }
-            if ($value instanceof BigInteger) {
-                throw new Exception\InvalidArgumentException(
-                    'Using Zend\Math\BigInteger to get an ' .
-                    'instance of Value_BigInteger is not ' .
-                    'available anymore.'
-                );
-            }
+        if ($value instanceof AbstractValue) {
+            return $value;
         }
 
         switch (static::getXmlRpcTypeByValue($value)) {
@@ -455,6 +445,9 @@ abstract class AbstractValue
         // If no type was specified, the default is string
         if (!$type) {
             $type = self::XMLRPC_TYPE_STRING;
+            if (empty($value) and preg_match('#^<value>.*</value>$#', $xml->asXML())) {
+                $value = str_replace(array('<value>', '</value>'), '', $xml->asXML());
+            }
         }
     }
 

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -24,8 +24,8 @@ class Rename extends Filter\AbstractFilter
     /**
      * Class constructor
      *
-     * Options argument may be either a string, a Zend_Config object, or an array.
-     * If an array or Zend_Config object, it accepts the following keys:
+     * Options argument may be either a string, a Zend\Config\Config object, or an array.
+     * If an array or Zend\Config\Config object, it accepts the following keys:
      * 'source'    => Source filename or directory which will be renamed
      * 'target'    => Target filename or directory, the new name of the source file
      * 'overwrite' => Shall existing files be overwritten ?
@@ -69,7 +69,7 @@ class Rename extends Filter\AbstractFilter
      * 'randomize' => Shall target files have a random postfix attached?
      *
      * @param  string|array $options Old file or directory to be rewritten
-     * @return \Zend\Filter\File\Rename
+     * @return self
      */
     public function setFile($options)
     {

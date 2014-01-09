@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -11,13 +11,12 @@ namespace Zend\Http;
 
 use ArrayIterator;
 use Zend\Http\Header\SetCookie;
-use Zend\Http\Response;
 use Zend\Uri;
 
 
 /**
- * A Zend_Http_CookieJar object is designed to contain and maintain HTTP cookies, and should
- * be used along with Zend_Http_Client in order to manage cookies across HTTP requests and
+ * A Zend\Http\Cookies object is designed to contain and maintain HTTP cookies, and should
+ * be used along with Zend\Http\Client in order to manage cookies across HTTP requests and
  * responses.
  *
  * The class contains an array of Zend\Http\Header\Cookie objects. Cookies can be added
@@ -36,7 +35,7 @@ use Zend\Uri;
 class Cookies extends Headers
 {
     /**
-     * Return cookie(s) as a Zend_Http_Cookie object
+     * Return cookie(s) as a Zend\Http\Cookie object
      *
      */
     const COOKIE_OBJECT = 0;
@@ -183,10 +182,11 @@ class Cookies extends Headers
 
         // Next, run Cookie->match on all cookies to check secure, time and session matching
         $ret = array();
-        foreach ($cookies as $cookie)
-            if ($cookie->match($uri, $matchSessionCookies, $now))
+        foreach ($cookies as $cookie) {
+            if ($cookie->match($uri, $matchSessionCookies, $now)) {
                 $ret[] = $cookie;
-
+            }
+        }
         // Now, use self::_flattenCookiesArray again - only to convert to the return format ;)
         $ret = $this->_flattenCookiesArray($ret, $retAs);
 
@@ -218,7 +218,9 @@ class Cookies extends Headers
         // Get correct cookie path
         $path = $uri->getPath();
         $path = substr($path, 0, strrpos($path, '/'));
-        if (! $path) $path = '/';
+        if (! $path) {
+            $path = '/';
+        }
 
         if (isset($this->cookies[$uri->getHost()][$path][$cookieName])) {
             $cookie = $this->cookies[$uri->getHost()][$path][$cookieName];

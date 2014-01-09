@@ -31,7 +31,7 @@ class Module
             $sm = $e->getApplication()->getServiceManager();
             $controller = $e->getTarget();
             $auth = $sm->get('zfcuser_auth_service');
-            if (!$auth->hasIdentity() && $e->getRouteMatch()->getMatchedRouteName() !== 'zfcuser/login') {
+            if (!$auth->hasIdentity() && $e->getRouteMatch()->getMatchedRouteName() !== 'zfcuser/login' && $e->getRouteMatch()->getMatchedRouteName() !== 'zfcuser/register') {
                 $application = $e->getTarget();
 
                 $e->stopPropagation();

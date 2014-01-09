@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -61,7 +61,7 @@ class Gz extends AbstractCompressionAlgorithm
      *
      * @param int $level
      * @throws Exception\InvalidArgumentException
-     * @return Gz
+     * @return self
      */
     public function setLevel($level)
     {
@@ -87,7 +87,7 @@ class Gz extends AbstractCompressionAlgorithm
      * Sets a new compression mode
      *
      * @param  string $mode Supported are 'compress', 'deflate' and 'file'
-     * @return Gz
+     * @return self
      * @throws Exception\InvalidArgumentException for invalid $mode value
      */
     public function setMode($mode)
@@ -114,7 +114,7 @@ class Gz extends AbstractCompressionAlgorithm
      * Sets the archive to use for de-/compression
      *
      * @param  string $archive Archive to use
-     * @return Gz
+     * @return self
      */
     public function setArchive($archive)
     {

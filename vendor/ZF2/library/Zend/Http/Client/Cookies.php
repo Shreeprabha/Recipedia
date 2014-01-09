@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -18,7 +18,7 @@ use Zend\Uri;
 
 /**
  * A Cookies object is designed to contain and maintain HTTP cookies, and should
- * be used along with Zend_Http_Client in order to manage cookies across HTTP requests and
+ * be used along with Zend\Http\Client in order to manage cookies across HTTP requests and
  * responses.
  *
  * The class contains an array of Zend\Http\Header\Cookie objects. Cookies can be added

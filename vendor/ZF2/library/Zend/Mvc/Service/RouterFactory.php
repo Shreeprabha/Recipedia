@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -11,7 +11,6 @@ namespace Zend\Mvc\Service;
 
 use Zend\Console\Console;
 use Zend\Mvc\Router\Console\SimpleRouteStack as ConsoleRouter;
-use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -31,39 +30,34 @@ class RouterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator, $cName = null, $rName = null)
     {
-        $config             = $serviceLocator->get('Config');
-        $routePluginManager = $serviceLocator->get('RoutePluginManager');
+        $config             = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
 
-        if (
-            $rName === 'ConsoleRouter' ||                   // force console router
-            ($cName === 'router' && Console::isConsole())       // auto detect console
+        // Defaults
+        $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
+        $routerConfig       = isset($config['router']) ? $config['router'] : array();
+
+        // Console environment?
+        if ($rName === 'ConsoleRouter'                       // force console router
+            || ($cName === 'router' && Console::isConsole()) // auto detect console
         ) {
-            // We are in a console, use console router.
-            if (isset($config['console']) && isset($config['console']['router'])) {
-                $routerConfig = $config['console']['router'];
-            } else {
-                $routerConfig = array();
-            }
-
-            $router = new ConsoleRouter($routePluginManager);
-        } else {
-            // This is an HTTP request, so use HTTP router
-            $router       = new HttpRouter($routePluginManager);
-            $routerConfig = isset($config['router']) ? $config['router'] : array();
+            // We are in a console, use console router defaults.
+            $routerClass = 'Zend\Mvc\Router\Console\SimpleRouteStack';
+            $routerConfig = isset($config['console']['router']) ? $config['console']['router'] : array();
         }
 
-        if (isset($routerConfig['route_plugins'])) {
-            $router->setRoutePluginManager($routerConfig['route_plugins']);
+        // Obtain the configured router class, if any
+        if (isset($routerConfig['router_class']) && class_exists($routerConfig['router_class'])) {
+            $routerClass = $routerConfig['router_class'];
         }
 
-        if (isset($routerConfig['routes'])) {
-            $router->addRoutes($routerConfig['routes']);
+        // Inject the route plugins
+        if (!isset($routerConfig['route_plugins'])) {
+            $routePluginManager = $serviceLocator->get('RoutePluginManager');
+            $routerConfig['route_plugins'] = $routePluginManager;
         }
 
-        if (isset($routerConfig['default_params'])) {
-            $router->setDefaultParams($routerConfig['default_params']);
-        }
-
-        return $router;
+        // Obtain an instance
+        $factory = sprintf('%s::factory', $routerClass);
+        return call_user_func($factory, $routerConfig);
     }
 }

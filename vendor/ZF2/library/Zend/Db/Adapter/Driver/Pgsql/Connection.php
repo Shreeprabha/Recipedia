@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -218,7 +218,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function beginTransaction()
     {
-        // TODO: Implement beginTransaction() method.
+        if ($this->inTransaction) {
+            throw new Exception\RuntimeException('Nested transactions are not supported');
+        }
+
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        pg_query($this->resource, 'BEGIN');
+        $this->inTransaction = true;
     }
 
     /**
@@ -226,7 +235,12 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function commit()
     {
-        // TODO: Implement commit() method.
+        if (!$this->inTransaction) {
+            return; // We ignore attempts to commit non-existing transaction
+        }
+
+        pg_query($this->resource, 'COMMIT');
+        $this->inTransaction = false;
     }
 
     /**
@@ -234,7 +248,12 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function rollback()
     {
-        // TODO: Implement rollback() method.
+        if (!$this->inTransaction) {
+            return;
+        }
+
+        pg_query($this->resource, 'ROLLBACK');
+        $this->inTransaction = false;
     }
 
     /**

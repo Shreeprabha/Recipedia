@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -39,6 +39,7 @@ class FilterPluginManager extends AbstractPluginManager
         'compresssnappy'            => 'Zend\Filter\Compress\Snappy',
         'compresstar'               => 'Zend\Filter\Compress\Tar',
         'compresszip'               => 'Zend\Filter\Compress\Zip',
+        'datetimeformatter'         => 'Zend\Filter\DateTimeFormatter',
         'decompress'                => 'Zend\Filter\Decompress',
         'decrypt'                   => 'Zend\Filter\Decrypt',
         'digits'                    => 'Zend\Filter\Digits',
@@ -55,8 +56,6 @@ class FilterPluginManager extends AbstractPluginManager
         'htmlentities'              => 'Zend\Filter\HtmlEntities',
         'inflector'                 => 'Zend\Filter\Inflector',
         'int'                       => 'Zend\Filter\Int',
-        'localizedtonormalized'     => 'Zend\Filter\LocalizedToNormalized',
-        'normalizedtolocalized'     => 'Zend\Filter\NormalizedToLocalized',
         'null'                      => 'Zend\Filter\Null',
         'numberformat'              => 'Zend\I18n\Filter\NumberFormat',
         'pregreplace'               => 'Zend\Filter\PregReplace',

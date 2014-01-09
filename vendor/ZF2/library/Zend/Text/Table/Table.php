@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -300,7 +300,7 @@ class Table
      * Append a row to the table
      *
      * @param  array|Row $row The row to append to the table
-     * @throws Exception\InvalidArgumentException When $row is neither an array nor Zend_Zext_Table_Row
+     * @throws Exception\InvalidArgumentException When $row is neither an array nor Zend\Text\Table\Row
      * @throws Exception\OverflowException When a row contains too many columns
      * @return Table
      */

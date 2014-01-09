@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -57,6 +57,13 @@ class Gravatar extends AbstractHtmlElement
     protected $email;
 
     /**
+     * True or false if the email address passed is already an MD5 hash
+     *
+     * @var bool
+     */
+    protected $emailIsHashed;
+
+    /**
      * Options
      *
      * @var array
@@ -104,7 +111,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @return string
      */
-    public function  __toString()
+    public function __toString()
     {
         return $this->getImgTag();
     }
@@ -135,7 +142,7 @@ class Gravatar extends AbstractHtmlElement
     protected function getAvatarUrl()
     {
         $src = $this->getGravatarUrl()
-            . '/'   . md5($this->getEmail())
+            . '/'   . ($this->emailIsHashed ? $this->getEmail() : md5($this->getEmail()))
             . '?s=' . $this->getImgSize()
             . '&d=' . $this->getDefaultImg()
             . '&r=' . $this->getRating();
@@ -231,7 +238,8 @@ class Gravatar extends AbstractHtmlElement
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->emailIsHashed = (bool) preg_match('/^[A-Za-z0-9]{32}$/', $email);
+        $this->email = strtolower(trim($email));
         return $this;
     }
 

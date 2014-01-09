@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -131,12 +131,16 @@ class Mvc extends AbstractPage
                     $myParams['action'] = $this->action;
                 }
 
-                if (null !== $this->getRoute()
-                    && $this->routeMatch->getMatchedRouteName() === $this->getRoute()
-                    && (count(array_intersect_assoc($reqParams, $myParams)) == count($myParams))
-                ) {
-                    $this->active = true;
-                    return true;
+                if (null !== $this->getRoute()) {
+                    if (
+                        $this->routeMatch->getMatchedRouteName() === $this->getRoute()
+                        && (count(array_intersect_assoc($reqParams, $myParams)) == count($myParams))
+                    ) {
+                        $this->active = true;
+                        return $this->active;
+                    } else {
+                        return parent::isActive($recursive);
+                    }
                 }
             }
 
@@ -197,7 +201,7 @@ class Mvc extends AbstractPage
             );
         }
 
-        if ($this->useRouteMatch()) {
+        if ($this->useRouteMatch() && $this->getRouteMatch()) {
             $rmParams = $this->getRouteMatch()->getParams();
 
             if (isset($rmParams[ModuleRouteListener::ORIGINAL_CONTROLLER])) {

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -73,11 +73,12 @@ class SimpleRouteStack implements RouteStackInterface
             throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
         }
 
-        $instance = new static();
-
+        $routePluginManager = null;
         if (isset($options['route_plugins'])) {
-            $instance->setRoutePluginManager($options['route_plugins']);
+            $routePluginManager = $options['route_plugins'];
         }
+
+        $instance = new static($routePluginManager);
 
         if (isset($options['routes'])) {
             $instance->addRoutes($options['routes']);
@@ -253,7 +254,7 @@ class SimpleRouteStack implements RouteStackInterface
      * Create a route from array specifications.
      *
      * @param  array|Traversable $specs
-     * @return SimpleRouteStack
+     * @return RouteInterface
      * @throws Exception\InvalidArgumentException
      */
     protected function routeFromArray($specs)

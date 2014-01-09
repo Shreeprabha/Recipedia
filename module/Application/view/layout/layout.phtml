@@ -8,7 +8,7 @@
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon(1).ico'))
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/icon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/style.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') 
@@ -50,10 +50,10 @@
 									</ul>
 								</li>
 								<li class="dropdown user-dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 										<?php 
 											if($this->zfcUserIdentity()) {
-												
+												echo $this->gravatar($this->zfcUserIdentity()->getEmail());
 												echo $this->zfcUserIdentity()->getDisplayName(); 
 												}
 											else echo 'guest';
@@ -64,7 +64,7 @@
 										<li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
 										<li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
 										<li class="divider"></li>
-										<li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+										<li><a href="<?php echo $this->url('zfcuser/logout') ?>"><i class="fa fa-power-off"></i>Log Out</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -72,15 +72,27 @@
 					</nav>
         </div>
         <div class="container">
-        	<div class="jumbotron">
-            	<?php echo $this->content; ?>
-           		<hr>
-            	
-        	</div> <!-- /jumbotron -->
-        	<footer>
-                	<p>&copy; 2013 - <?php echo date('Y') ?> by Shreeprabha Aggarwal. <?php echo $this->translate('All rights reserved.') ?></p>
-            	</footer>
-        </div><!-- /container -->
+        	 <div class="row">
+        		<div class="col-lg-9">
+            		<?php echo $this->content; ?>
+           			<hr>
+            	</div>
+        	    <div class="col-lg-3">
+          			<div class="well">
+        			 <h4>Side Widget Well</h4>
+            		 <p>Bootstrap's default wells work great for side widgets! What is a widget anyways...?</p>
+          			</div><!-- /well -->
+        		</div>
+      		</div>
+            <hr>
+            <footer>
+      	 		<div class="row">
+        	  		<div class="col-lg-12">
+               			<p>&copy; 2013 - <?php echo date('Y') ?> by Shreeprabha Aggarwal. <?php echo $this->translate('All rights reserved.') ?></p>
+              		</div>
+           		</div>
+      		</footer>
+	    </div><!-- /.container -->
         <?php echo $this->inlineScript() ?>
     </body>
 </html>

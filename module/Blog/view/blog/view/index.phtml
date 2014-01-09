@@ -1,0 +1,28 @@
+<strong>Module:</strong>        Blog &raquo;
+<strong>Controller:</strong>    View &raquo;
+<strong>Action:</strong>        index
+
+<?php
+$title = 'My posts';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p><a href="/blog/post/add">Add new post</a></p>
+
+<table class="table">
+<tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach($posts as $post) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($post->title);?></td>
+    <td><?php echo $this->escapeHtml($post->body);?></td>    <td>
+        <a href="/blog/post/edit/<?php echo $post->id; ?>">Edit</a>
+        <a href="/blog/post/delete/<?php echo $post->id; ?>">Delete</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

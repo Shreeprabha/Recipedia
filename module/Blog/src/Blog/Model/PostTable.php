@@ -40,6 +40,8 @@ class PostTable extends AbstractTableGateway
         $data = array(
             'title' => $post->title,
             'body'  => $post->body,
+            'author'=>$post->author,
+            'date'=>$post->date,
         );
         $id = (int)$post->id;
         if ($id == 0) {

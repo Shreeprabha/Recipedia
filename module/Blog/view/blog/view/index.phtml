@@ -1,28 +1,26 @@
-<strong>Module:</strong>        Blog &raquo;
-<strong>Controller:</strong>    View &raquo;
-<strong>Action:</strong>        index
+<h1><?php echo $this->escapeHtml("The Food Blog"); ?></h1>
+<?php if($this->zfcUserIdentity()) : ?>
+<p><a class="btn btn-primary" href="/blog/post/add">Add a new Post! <span class="glyphicon glyphicon-chevron-right"></span></a><p>
+	<?php foreach($posts as $post) : ?>
+		<h2><a href="#"><?php echo $this->escapeHtml($post->title);?></a></h2>
+		<p class="lead">by <?php echo $this->gravatar($this->escapeHtml($post->author));?>
+			<?php if($this->zfcUserIdentity()->getEmail() == $this->escapeHtml($post->author)) : ?>
+				<a href="/blog/post/edit/<?php echo $post->id; ?>">Edit</a>
+        		<a href="/blog/post/delete/<?php echo $post->id; ?>">Delete</a>
+        	<?php endif;?>
+		</p>
+		<hr>
+		<p><i class="fa fa-calendar"></i><?php echo $this->escapeHtml($post->date);?></p>
+		<hr>
+		<p><?php if (strlen($this->escapeHtml($post->body)) > 250) : ?>
+				<?php echo substr($this->escapeHtml($post->body), 0, 250); ?>
+				<a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+			<?php else : ?>
+				<?php echo $this->escapeHtml($post->body); ?>
+			<?php endif;?>
+		</p>
+		<hr>
+	<?php endforeach; ?>		
+<?php endif;?>
 
-<?php
-$title = 'My posts';
-$this->headTitle($title);
-?>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<p><a href="/blog/post/add">Add new post</a></p>
-
-<table class="table">
-<tr>
-    <th>Title</th>
-    <th>Body</th>
-    <th>&nbsp;</th>
-</tr>
-<?php foreach($posts as $post) : ?>
-<tr>
-    <td><?php echo $this->escapeHtml($post->title);?></td>
-    <td><?php echo $this->escapeHtml($post->body);?></td>    <td>
-        <a href="/blog/post/edit/<?php echo $post->id; ?>">Edit</a>
-        <a href="/blog/post/delete/<?php echo $post->id; ?>">Delete</a>
-    </td>
-</tr>
-<?php endforeach; ?>
-</table>

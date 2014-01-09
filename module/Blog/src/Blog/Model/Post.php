@@ -20,8 +20,8 @@ class Post implements InputFilterAwareInterface
         $this->id     = (isset($data['id'])) ? $data['id'] : null;
         $this->title  = (isset($data['title'])) ? $data['title'] : null;
         $this->body = (isset($data['body'])) ? $data['body'] : null;
-        $this->body = (isset($data['author'])) ? $data['author'] : null;
-        $this->body = (isset($data['date'])) ? $data['date'] : null;
+        $this->author = (isset($data['author'])) ? $data['author'] : null;
+        $this->date = (isset($data['date'])) ? $data['date'] : null;
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -75,7 +75,7 @@ class Post implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 100,
+                            'max'      => 1000,
                         ),
                     ),
                 ),

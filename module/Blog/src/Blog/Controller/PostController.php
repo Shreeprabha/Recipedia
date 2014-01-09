@@ -37,6 +37,7 @@ class PostController extends AbstractActionController
             $form->setInputFilter($post->getInputFilter());
             $form->setData($request->getPost());
 
+			
             if ($form->isValid()) {
                 $post->exchangeArray($form->getData());
                 $this->getPostTable()->savePost($post);

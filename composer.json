@@ -12,6 +12,7 @@
         "richardjh/rjhredbean": "dev-master",
         "gabordemooij/redbean": "dev-master",
         "facebook/php-sdk" : "*",
-        "doctrine/common" : ">=2.1"
+        "doctrine/common" : ">=2.1",
+        "zf-commons/zfc-user": "dev-master"
     }
 }

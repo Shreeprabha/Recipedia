@@ -1,37 +1,88 @@
+/* 
+Author: Start Bootstrap - http://startbootstrap.com
+'SB Admin' HTML Template by Start Bootstrap
+
+All Start Bootstrap themes are licensed under Apache 2.0. 
+For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
+*/
+
+/* ATTN: This is mobile first CSS - to update 786px and up screen width use the media query near the bottom of the document! */
+
+/* Global Styles */
 body {
-    padding-top: 60px;
-    padding-bottom: 40px;
+	margin-top: 50px;
+	background-color: #fff;
+	font-family: 'EB Garamond', serif;
+	color: #000;
+	font-size: 180%;
+	font-weight: 900;
 }
 
-.zf-green {
-    color: #68b604;
+#wrapper {
+	padding-left: 0;
 }
 
-.btn-success {
-  background-color: #57a900;
-  background-image: -moz-linear-gradient(top, #70d900, #57a900);
-  background-image: -ms-linear-gradient(top, #70d900, #57a900);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
-  background-image: -webkit-linear-gradient(top, #70d900, #57a900);
-  background-image: -o-linear-gradient(top, #70d900, #57a900);
-  background-image: linear-gradient(top, #70d900, #57a900);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
-}
+/* Edit Below to Customize Widths > 768px */
+@media ( min-width :768px) {
+	/* Wrappers */
+	#wrapper {
+		padding-left: 225px;
+	}
 
-.btn-success:hover,
-.btn-success:active,
-.btn-success.active,
-.btn-success.disabled,
-.btn-success[disabled] {
-  background-color: #57a900;
-}
+	/* Side Nav */
+	.navbar-inverse .navbar-brand {
+		color: #fff;
+		font-weight: 900;
+		font-size:120%;
+	}
+	
+	.navbar-inverse .navbar-nav>li>a {
+	color:#580407;
+	}
+	.side-nav {
+		margin-left: -250px;
+		left: 300px;
+		width: 200px;
+		position: fixed;
+		top: 50px;
+		height: 100%;
+		border-radius: 0;
+		border: none;
+		background-color: #ab0000;
+		overflow-y: auto;
+		
+	}
 
-.btn-success:active, .btn-success.active {
-  background-color: #57a900;
-}
-
-div.container a.brand {
-    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
-    margin-left: 0;
-    padding: 8px 20px 12px 40px;
+	/* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
+	.side-nav>li.dropdown>ul.dropdown-menu {
+		color:#580407;
+		position: relative;
+		min-width: 225px;
+		margin: 0;
+		padding: 0;
+		border: none;
+		border-radius: 0;
+		background-color: transparent;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+	}
+	.side-nav>li.dropdown>ul.dropdown-menu>li>a {
+		color: #999999;
+		padding: 15px 15px 15px 25px;
+	}
+	.side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,.side-nav>li.dropdown>ul.dropdown-menu>li>a.active,.side-nav>li.dropdown>ul.dropdown-menu>li>a:focus
+		{
+		color: #fff;
+		background-color: #580407;
+	}
+	.side-nav>li>a {
+		width: 225px;
+	}
+	.navbar-collapse {
+		background-color: #ab0000;
+	}
+	.navbar-inverse .navbar-nav>li>a:hover,.navbar-inverse .navbar-nav>li>a:focus
+	{
+		background-color: #580407;
+	}
 }

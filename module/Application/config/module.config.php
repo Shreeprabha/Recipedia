@@ -24,7 +24,7 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'application' => array(
+      'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     'route'    => '/application',
@@ -36,33 +36,15 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'add' => array(
+                    'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/add',
+                            'route'    => '/[:controller[/:action]]',
                             'constraints' => array(
-                                'controller' => 'Index',
-                                'action'     => 'add',
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
-                        ),
-                    ),
-                    'upload' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/upload',
-                            'constraints' => array(
-                                'controller' => 'Index',
-                                'action'     => 'upload',
-                            ),
-                        ),
-                    ),
-                    'delete' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/delete',
-                            'constraints' => array(
-                                'controller' => 'Index',
-                                'action'     => 'delete',
+                            'defaults' => array(
                             ),
                         ),
                     ),

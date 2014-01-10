@@ -40,17 +40,20 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav navbar-right navbar-user">	
             		<li  class="dropdown alerts-dropdown">
-						<a href="<?php echo $this->url('application') ?>" id="leftmost" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book"></i>Recipe<b class="caret"></b></a>
+						<a href="<?php echo $this->url('application') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book"></i>Recipe<b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="<?php echo $this->url('application/add') ?>">Add</a></li>
-							<li><a href="<?php echo $this->url('application/upload') ?>">Upload Recipe Image</a></li>
-							<li><a href="<?php echo $this->url('application/delete') ?>">Delete</a></li>
+							<li><a href="application/index/add">Add</a></li>
+							<li><a href="application/index/upload">Upload Recipe Image</a></li>
+							<li><a href="application/index/delete">Delete</a></li>
 						</ul>
 					</li>
 					<li class="dropdown user-dropdown">
-						<a href="<?php echo $this->url('blog') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope-o"></i>Blog<b class="caret"></b></a>
+						<a href="blog" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope-o"></i>Blog<b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							<li><a href="/blog">View Blog</a></li>
+							
 							<li><a href="/blog/post/add">Post on Blog</a></li>
+							
 						</ul>
 					</li>
 					<li class="dropdown user-dropdown">

@@ -10,6 +10,8 @@ use Application\Model\RecipeImageUpload;
 use Application\Form\UploadRecipeImageForm;
 use Application\Model\RecipeTable;   
 use Application\Form\RecipeForm;
+use Application\Model\Recipe;
+
 
 class IndexController extends AbstractActionController
 {
@@ -66,7 +68,7 @@ class IndexController extends AbstractActionController
 						$recipeImageUpload->exchangeArray($form->getData());
 						$recipeImageUpload->author = $this->zfcUserAuthentication()->getIdentity()->getEmail();
 						$this->getRecipeTable()->addRecipeImage($recipeImageUpload);
-						return $this->redirect()->toRoute('recipe');
+						return $this->redirect()->toRoute('application');
 					}
 				}  
 			} 
@@ -91,18 +93,18 @@ class IndexController extends AbstractActionController
 				$recipe->exchangeArray($form->getData());
 				$this->getRecipeTable()->saveRecipe($recipe);
 				
-				return $this->redirect()->toRoute('recipe');
+				return $this->redirect()->toRoute('application');
 			}  
 			
 		}
-		return array('form' => $form);
+		return new ViewModel(array('form' => $form));
 	}
 	
 	public function editAction()
 		{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('recipe', array(
+			return $this->redirect()->toRoute('application', array(
 				'action' => 'add'
 			));
 		}
@@ -120,7 +122,7 @@ class IndexController extends AbstractActionController
 			if ($form->isValid()) {
 				$this->getRecipeTable()->saveRecipe($recipe);
 				
-				return $this->redirect()->toRoute('recipe');
+				return $this->redirect()->toRoute('application');
 			}
 		}
 		
@@ -147,7 +149,7 @@ class IndexController extends AbstractActionController
 			}
 			
 			// Redirect to list of albums
-			return $this->redirect()->toRoute('recipe');
+			return $this->redirect()->toRoute('application');
 		}
 		
 		return array(

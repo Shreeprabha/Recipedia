@@ -17,9 +17,10 @@ Sign In
 
         <dt><?php echo $this->formLabel($form->get('credential')) ?></dt>
         <dd><?php echo $this->formInput($form->get('credential')) ?></dd>
-
+		
+		
         <?php if ($this->redirect): ?>
-            <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+            <input type="hidden" name="redirect" value="<?php echo 'recipe/index'?>" />
         <?php endif ?>
 
         <dd><?php echo $this->formButton($form->get('submit')) ?></dd>

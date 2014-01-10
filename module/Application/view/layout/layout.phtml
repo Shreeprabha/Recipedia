@@ -5,23 +5,23 @@
         <meta charset="utf-8">
         <?php echo $this->headTitle('Recipedia') ?>
         <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+->appendName('viewport', 'width=device-width, initial-scale=1.0')
+->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+?>
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/icon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') 
-                        ->prependStylesheet($this->basePath() . '/library/booklet/jquery.booklet.latest.css') 
-                        ->prependStylesheet($this->basePath() . '/font-awesome/css/font-awesome.min.css')  
-                        ->prependStylesheet('http://fonts.googleapis.com/css?family=EB+Garamond')
-                        ?> 
+->prependStylesheet($this->basePath() . '/css/style.css')
+->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') 
+->prependStylesheet($this->basePath() . '/library/booklet/jquery.booklet.latest.css') 
+->prependStylesheet($this->basePath() . '/font-awesome/css/font-awesome.min.css')  
+->prependStylesheet('http://fonts.googleapis.com/css?family=EB+Garamond')
+?> 
         <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
-            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
+->prependFile($this->basePath() . '/js/bootstrap.min.js')
+->prependFile($this->basePath() . '/js/jquery.min.js')
+->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+; ?>
     </head>
     <body>
          <div id="wrapper">
@@ -39,31 +39,32 @@
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav navbar-right navbar-user">	
-            		<li class="dropdown alerts-dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span class="badge">3</span> <b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li><a href="#">Default <span class="label label-default">Default</span></a></li>
-										<li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
-										<li><a href="#">Success <span class="label label-success">Success</span></a></li>
-										<li class="divider"></li>
-										<li><a href="#">View All</a></li>
-									</ul>
-								</li>
-								<li class="dropdown user-dropdown">
+            		<li  class="dropdown alerts-dropdown">
+						<a href="<?php echo $this->url('application') ?>" id="leftmost" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book"></i>Recipe<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo $this->url('application/add') ?>">Add</a></li>
+							<li><a href="<?php echo $this->url('application/upload') ?>">Upload Recipe Image</a></li>
+							<li><a href="<?php echo $this->url('application/delete') ?>">Delete</a></li>
+						</ul>
+					</li>
+					<li class="dropdown user-dropdown">
+						<a href="<?php echo $this->url('blog') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope-o"></i>Blog<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/blog/post/add">Post on Blog</a></li>
+						</ul>
+					</li>
+					<li class="dropdown user-dropdown">
+					
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 										<?php 
-											if($this->zfcUserIdentity()) {
-												echo $this->gravatar($this->zfcUserIdentity()->getEmail());
-												echo $this->zfcUserIdentity()->getDisplayName(); 
-												}
-											else echo 'guest';
-										?><b class="caret"></b>
+if($this->zfcUserIdentity()) {
+	echo $this->gravatar($this->zfcUserIdentity()->getEmail());
+	echo $this->zfcUserIdentity()->getDisplayName(); 
+}
+else echo 'guest';
+?><b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-										<li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
-										<li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-										<li class="divider"></li>
 										<li><a href="<?php echo $this->url('zfcuser/logout') ?>"><i class="fa fa-power-off"></i>Log Out</a></li>
 									</ul>
 								</li>
@@ -73,14 +74,45 @@
         </div>
         <div class="container">
         	 <div class="row">
-        		<div class="col-lg-9">
+        		<div class="col-lg-7">
             		<?php echo $this->content; ?>
            			<hr>
             	</div>
-        	    <div class="col-lg-3">
+        	    <div class="col-lg-5">
           			<div class="well">
-        			 <h4>Side Widget Well</h4>
-            		 <p>Bootstrap's default wells work great for side widgets! What is a widget anyways...?</p>
+        			 <?php
+try {
+	$slashdotRss = Zend\Feed\Reader\Reader::importFile('http://www.bbc.co.uk/blogs/food/rss.xml');
+} catch (Zend\Feed\Exception\Reader\RuntimeException $e) {
+	// feed import failed
+	echo "Exception caught importing feed: {$e->getMessage()}\n";
+	exit;
+}
+
+$channel = array(
+	'title'       => $slashdotRss->getTitle(),
+	'link'        => $slashdotRss->getLink(),
+	'description' => $slashdotRss->getDescription(),
+	'items'       => array()
+);
+
+echo $channel['title'];
+echo $channel['link'];
+echo $channel['description'];
+?>
+<?php foreach ($slashdotRss as $item): ?>
+  <?php  $channel['items'][] = array(
+	  'title'       => $item->getTitle(),
+	  'link'        => $item->getLink(),
+	  'description' => $item->getDescription()
+  );
+  ?> 
+      <p><?php echo $item->getTitle();?></p>
+   <p><?php echo $item->getLink();?></p>
+   <p><?php echo $item->getDescription();?></p>
+   
+<?php endforeach;?>
+
           			</div><!-- /well -->
         		</div>
       		</div>

@@ -36,15 +36,33 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
+                    'add' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/add',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'controller' => 'Index',
+                                'action'     => 'add',
                             ),
-                            'defaults' => array(
+                        ),
+                    ),
+                    'upload' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/upload',
+                            'constraints' => array(
+                                'controller' => 'Index',
+                                'action'     => 'upload',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/delete',
+                            'constraints' => array(
+                                'controller' => 'Index',
+                                'action'     => 'delete',
                             ),
                         ),
                     ),

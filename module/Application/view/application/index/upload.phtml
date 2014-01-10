@@ -1,0 +1,23 @@
+<?php
+
+$title = 'Upload recipe image';
+$this->headTitle($title);
+?>
+<h1>
+<?php 
+
+echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action',
+                    $this->url('/upload', //your route name ...
+                               array('controller'=>'index', 'action' => 'upload'))); 
+$form->prepare();
+ 
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('recipename'));
+ 
+echo $this->formRow($form->get('fileupload'));
+ 
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();

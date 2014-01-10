@@ -9,9 +9,7 @@ $this->headTitle($title);
 echo $this->escapeHtml($title); ?></h1>
 <?php
 $form = $this->form;
-$form->setAttribute('action',
-                    $this->url('/upload', //your route name ...
-                               array('controller'=>'index', 'action' => 'upload'))); 
+$form->setAttribute('action', '/application/index/upload');
 $form->prepare();
  
 echo $this->form()->openTag($form);
